@@ -1,0 +1,22 @@
+name: QA IaC deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - aws/terraform/environments/qa/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - aws/terraform/environments/qa/**
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy.yml
+    with:
+      environment: qa
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

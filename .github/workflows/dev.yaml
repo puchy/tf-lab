@@ -1,0 +1,22 @@
+name: DEV IaC deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - aws/terraform/environments/dev/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - aws/terraform/environments/dev/**
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy.yml
+    with:
+      environment: dev
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
