@@ -1,0 +1,49 @@
+default_install_hook_types:
+  - pre-commit
+
+repos:
+  # General pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0 # Use the latest stable version
+    hooks:
+      - id: trailing-whitespace         # Removes trailing whitespace from files
+      - id: end-of-file-fixer           # Ensures files end with a single newline
+      - id: check-yaml                  # Validates YAML syntax
+      - id: check-added-large-files     # Warns about adding large files to the repo
+
+  # Terraform-specific hooks
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.2 # Check the latest version at: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+      - id: terraform_fmt               # Formats Terraform code
+      - id: terraform_docs              # Updates Terraform documentation
+        exclude: ^examples/             # Exclude examples from documentation generation
+        args:
+          - --hook-config=--path-to-file=README.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--create-file-if-not-exist=true
+          - --args=--hide providers      # Hides the 'providers' section from the output
+      - id: terraform_tflint             # Runs tflint for linting Terraform code
+        exclude: ^examples/             # Exclude examples from documentation generation
+        args:
+          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl # Specifies custom tflint configuration file
+
+  # # Pre-commit hook for tfsec
+  # - repo: https://github.com/aquasecurity/tfsec
+  #   rev: v1.28.11 # Check for the latest version at https://github.com/aquasecurity/tfsec/releases
+  #   hooks:
+  #     - id: tfsec
+  #       args:
+  #         - --exclude=AWS001,AZU002 # Example: Exclude specific rules
+  #       exclude: ^example/.*$       # Excludes files in 'example' directory
+  #       pass_failing: true          # Allows hook to pass even if issues are found
+
+  # # Pre-commit hook for checkov
+  # - repo: https://github.com/bridgecrewio/checkov
+  #   rev: 3.2.317 # Check for the latest version at https://github.com/bridgecrewio/checkov/releases
+  #   hooks:
+  #     - id: checkov
+  #       args:
+  #         - --quiet                # Suppress non-critical output
+  #       files: \.tf$               # Applies only to Terraform files
+  #       exclude: ^example/.*$      # Excludes files in 'example' directory
