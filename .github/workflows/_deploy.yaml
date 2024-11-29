@@ -73,14 +73,17 @@ jobs:
       - name: Terraform format
         id: fmt
         run: terraform fmt -check
+        working-directory: ./aws/terraform/environments/${{ inputs.environment }}
 
       - name: Terraform Init
         id: init
         run: terraform init
+        working-directory: ./aws/terraform/environments/${{ inputs.environment }}
 
       - name: Terraform validate
         id: validate
         run: terraform validate
+        working-directory: ./aws/terraform/environments/${{ inputs.environment }}
 
       - name: Terraform Plan
         id: plan
