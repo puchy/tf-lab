@@ -90,6 +90,7 @@ jobs:
         run: terraform plan -input=false -out=tfplan-pr${{ github.event.pull_request.number }} && terraform show -no-color tfplan-pr${{ github.event.pull_request.number }}
         working-directory: ./aws/terraform/environments/${{ inputs.environment }}
 
+      # TODO: Upload also hcl.lock file and readable plan output?
       - name: Upload plan to S3
         run: |
           aws s3 cp ./aws/terraform/environments/${{ inputs.environment }}/tfplan-pr${{ github.event.pull_request.number }} \
@@ -143,19 +144,26 @@ jobs:
       #   with:
       #     terraform_version: 1.9.8
 
+      - name: Find pull request info
+        id: pr-info
+        run: |
+          PR_NUMBER=$(gh pr list --state merged --base "${BASE_BRANCH}" --search "${PUSH_COMMIT_SHA}" --json number -q '.[0].number')
+
+          if [ -z "${PR_NUMBER}" ]; then
+            echo "::error::pull request number not found"
+            exit 1
+          fi
+
+          echo $PR_NUMBER
+          echo "prNumber=$PR_NUMBER" >> $GITHUB_OUTPUT
+        env:
+          BASE_BRANCH: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+          PUSH_COMMIT_SHA: ${{ github.event.after }}
+
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ./aws/terraform/environments/${{ inputs.environment }}
-
-      - name: Terraform format
-        id: fmt
-        run: terraform fmt -check
-        working-directory: ./aws/terraform/environments/${{ inputs.environment }}
-
-      - name: Terraform validate
-        id: validate
-        run: terraform validate
         working-directory: ./aws/terraform/environments/${{ inputs.environment }}
 
       - name: Download plan from S3
