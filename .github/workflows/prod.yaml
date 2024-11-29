@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    uses: ./.github/workflows/_deploy.yml
+    uses: ./.github/workflows/_deploy.yaml
     with:
       environment: prod
     secrets:
