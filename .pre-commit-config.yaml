@@ -17,14 +17,14 @@ repos:
     hooks:
       - id: terraform_fmt               # Formats Terraform code
       - id: terraform_docs              # Updates Terraform documentation
-        exclude: ^examples/             # Exclude examples from documentation generation
+        exclude: ^stacks/             # Exclude examples from documentation generation
         args:
           - --hook-config=--path-to-file=README.md
           - --hook-config=--add-to-existing-file=true
           - --hook-config=--create-file-if-not-exist=true
           - --args=--hide providers      # Hides the 'providers' section from the output
       - id: terraform_tflint             # Runs tflint for linting Terraform code
-        exclude: ^examples/             # Exclude examples from documentation generation
+        exclude: ^stacks/             # Exclude examples from documentation generation
         args:
           - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl # Specifies custom tflint configuration file
 
