@@ -8,3 +8,5 @@ module "s3_bucket" {
     Project     = "TerraformModuleExample"
   }
 }
+
+# END
