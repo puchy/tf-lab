@@ -30,6 +30,11 @@ output "set_output" {
   value       = var.example_set
 }
 
+output "set_filtered_item" {
+  description = "filtered item from example_set"
+  value       = [for item in var.example_set : item if item == "banana"]
+}
+
 # LIST
 output "map_output" {
   description = "value of example_map"
