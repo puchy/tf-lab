@@ -8,3 +8,6 @@ servers:
   - name: DBServer
     ip: 192.168.1.3
     role: database
+  - name: WebServer2
+    ip: 54.32.11.5
+    role: Frontend

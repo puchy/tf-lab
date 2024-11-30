@@ -1,6 +1,6 @@
 # Dynamic block for outputs
 output "server_details" {
-  description = "Server details"
+  description = "server details"
   value = { for server in local.servers : server.name => {
     ip   = server.ip
     role = lower(server.role)
@@ -9,7 +9,7 @@ output "server_details" {
 
 # Example of using try function - error handling
 output "safe_lookup" {
-  description = "Safely lookup server name"
+  description = "safely lookup a server by index"
   value       = try(local.servers[3].name, "No server found at index 3")
 }
 

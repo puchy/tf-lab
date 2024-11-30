@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+
 # YAML decoding
 data "local_file" "config" {
   filename = "${path.module}/config.yaml"
@@ -61,6 +62,14 @@ resource "local_file" "server_config" {
     name = each.value.name
     ip   = each.value.ip
     role = lower(each.value.role)
+    # Conditional expression to add an extra line only for frontend servers
+    extra_info = lower(each.value.role) == "frontend" ? (
+      startswith(each.value.ip, "10.") ||
+      startswith(each.value.ip, "172.") ||
+      startswith(each.value.ip, "192.168.")
+      ? "This is a PRIVATE frontend server."
+      : "This is a PUBLIC frontend server."
+    ) : ""
   })
 }
 
