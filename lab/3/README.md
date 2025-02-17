@@ -17,7 +17,7 @@
 
 ### local_file_2
 
-- Spustit terraform v podadresáři local_file_1
+- Spustit terraform v podadresáři local_file_2
 - ```data "local_file```: Načítání konfiguračního yaml souboru.
 - ```yamldecode```: Dekódování obsahu YAML souboru na Terraform struktury.
 - ```for_each```: Používá se pro iteraci nad seznamem serverů a generování souborů.

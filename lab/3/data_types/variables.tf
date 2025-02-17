@@ -19,7 +19,7 @@ variable "example_set" {
   default     = ["apple", "banana", "cherry"]
 }
 
-# LIST
+# MAP
 variable "example_map" {
   description = "example map"
   type        = map(string)

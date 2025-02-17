@@ -10,7 +10,7 @@ output "server_details" {
 # Example of using try function - error handling
 output "safe_lookup" {
   description = "safely lookup a server by index"
-  value       = try(local.servers[3].name, "No server found at index 3")
+  value       = try(local.servers[4].name, "No server found at index 4")
 }
 
 output "frontend_servers" {

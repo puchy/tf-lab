@@ -1,0 +1,4 @@
+Server Name: WebServer2
+IP Address: 54.32.11.5
+Role: frontend
+This is a PUBLIC frontend server.

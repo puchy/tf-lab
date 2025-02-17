@@ -1,0 +1,4 @@
+Server Name: WebServer
+IP Address: 192.168.1.1
+Role: frontend
+This is a PRIVATE frontend server.
