@@ -7,11 +7,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "tf-lab-pucherna-bucket"
-    key            = "moddev/terraform.tfstate"
-    region         = "eu-central-1"
-    encrypt        = true
-    dynamodb_table = "tf-lab-pucherna-tfstate-locking"
+    bucket  = "tf-lab-pucherna-bucket"
+    key     = "moddev/terraform.tfstate"
+    region  = "eu-central-1"
+    encrypt = true
+    #dynamodb_table = "tf-lab-pucherna-tfstate-locking"
   }
 }
 
