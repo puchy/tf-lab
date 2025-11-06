@@ -1,7 +1,7 @@
 module "s3_bucket" {
   source = "../../../modules/s3/"
 
-  bucket_name   = "my-pucherna-bucket"
+  bucket_name   = "my-pucherna-bucket3"
   force_destroy = true
   tags = {
     Environment = "Dev"
@@ -10,3 +10,8 @@ module "s3_bucket" {
 }
 
 # END
+
+# resource "aws_s3_bucket_acl" "example" {
+#   bucket = module.s3_bucket.bucket_id
+#   acl    = "private"
+# }
